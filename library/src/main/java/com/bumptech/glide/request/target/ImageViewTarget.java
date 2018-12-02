@@ -53,6 +53,7 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z>
    */
   @Override
   public void setDrawable(Drawable drawable) {
+    // 调用setImageDrawable设置占位图
     view.setImageDrawable(drawable);
   }
 
@@ -66,6 +67,7 @@ public abstract class ImageViewTarget<Z> extends ViewTarget<ImageView, Z>
   public void onLoadStarted(@Nullable Drawable placeholder) {
     super.onLoadStarted(placeholder);
     setResourceInternal(null);
+    // 设置 占位图
     setDrawable(placeholder);
   }
 

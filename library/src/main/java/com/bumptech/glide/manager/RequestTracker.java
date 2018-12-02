@@ -16,6 +16,9 @@ import java.util.WeakHashMap;
  * A class for tracking, canceling, and restarting in progress, completed, and failed requests.
  *
  * <p>This class is not thread safe and must be accessed on the main thread.
+ *
+ * 管理 Request
+ *
  */
 public class RequestTracker {
   private static final String TAG = "RequestTracker";
@@ -39,14 +42,20 @@ public class RequestTracker {
    * Starts tracking the given request.
    */
   public void runRequest(@NonNull Request request) {
+    // 将请求加入到requests的set中
     requests.add(request);
+
+    // isPaused变量标识界面是否处于onStop状态
     if (!isPaused) {
+      // 可见则直接开始请求
       request.begin();
     } else {
+      // 不可见
       request.clear();
       if (Log.isLoggable(TAG, Log.VERBOSE)) {
         Log.v(TAG, "Paused, delaying request");
       }
+      // 将请求加入到pendingRequests中
       pendingRequests.add(request);
     }
   }

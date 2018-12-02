@@ -398,6 +398,7 @@ public abstract class ViewTarget<T extends View, Z> extends BaseTarget<Z> {
       if (layoutListener == null) {
         ViewTreeObserver observer = view.getViewTreeObserver();
         layoutListener = new SizeDeterminerLayoutListener(this);
+
         observer.addOnPreDrawListener(layoutListener);
       }
     }
